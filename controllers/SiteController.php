@@ -2,6 +2,11 @@
 
 namespace app\controllers;
 
+use app\models\CallSearch;
+
+use app\models\FiltersModel;
+use app\models\Review;
+use app\models\Smi;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -61,7 +66,20 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $searchModel = new CallSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $filters = new FiltersModel();
+        $reviews = Review::find()->all();
+        $smireviews = Smi::find()->all();
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'filters' => $filters,
+            'reviews' => $reviews,
+            'smireviews' => $smireviews,
+        ]);
+        //return $this->render('index');
     }
 
     /**

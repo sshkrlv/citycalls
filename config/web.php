@@ -11,10 +11,18 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
+    'modules' => [
+        'admin' => [
+            'class' => 'app\modules\admin\Module',
+        ],
+        'api' => [
+            'class' => 'app\modules\api\Module',
+        ],
+    ],
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'h-QWU6GLCB8wPLBebK_5bBCZNZR9vqK1',
+            'cookieValidationKey' => 'lqSvr30vXtCcCcgt-jurEaQbN0l_I_lr',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -43,15 +51,37 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
+/*
         'urlManager' => [
             'enablePrettyUrl' => true,
-            'showScriptName' => false,
+            'showScriptName' => true,
+            'enableStrictParsing' => false,
             'rules' => [
             ],
+        ],*/
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'enableStrictParsing' => false,
+            'showScriptName' => false,
+            'rules' => [
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'call'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'customer'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'review'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => ['smi' => 'smi'],],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'scope'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => ['types'=>'TypeOfProblem']],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'technology'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/call'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/customer'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/review'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => ['smi' => 'api/smi'],],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/scope'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => ['types'=>'api/TypeOfProblem']],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/technology'],
+            ],
         ],
-        */
     ],
+
     'params' => $params,
 ];
 
